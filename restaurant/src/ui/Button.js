@@ -1,7 +1,8 @@
-// TODO: make the style more compact
+import { useState } from 'react'
+
 const Button = ({ text,color,backgroundColor }) => {
 
-    let asc = true
+    let [asc, setAsc] = useState(true)    
 
     return (
         <button 
@@ -12,7 +13,7 @@ const Button = ({ text,color,backgroundColor }) => {
             }}
 
             onClick={ () => { 
-                asc = !asc 
+                setAsc(!asc) 
                 console.log(asc)
             } }
         

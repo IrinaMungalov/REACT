@@ -9,6 +9,7 @@ import Food from './Food';
 import reportWebVitals from './reportWebVitals';
 
 import { Button } from './ui/Button';
+import { Counter } from './ui/Counter';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -20,6 +21,8 @@ root.render(
       backgroundColor="#333"
       color="#fff"
     />
+
+    <Counter />
 
     <Food
       name="Pizza"
