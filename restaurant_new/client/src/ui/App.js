@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import { SortButton } from './SortButton';
 import { Menu } from './Menu';
@@ -11,7 +11,10 @@ const App = () => {
     let [sortAsc, setSortAsc] = useState(true)
     let [items,setItems]      = useState([])
 
-    getProductItems(setItems)
+    useEffect(() => {
+        getProductItems(setItems)
+    },[]) // single call
+    
     
     return (
         <>

@@ -86,3 +86,59 @@
                                       ...
                                       <MEnu items={items} ... >
                                     </>
+
+
+
+
+
+
+
+
+
+
+
+
+# hooks / useEffect()
+
+
+
+
+
+    CLIENT (react)                                                                     SERVER (nodejs)
+    -------------------------------------------------------------------+              +----------------
+                                                                       |              |
++-><App />                                                             |              | 
+|    |                                                                 |              |
+|    v                                                                 |              |
+|  App()                                                               |              |
+|    |
+|    |
+|    +--------------------------------------+
+|    |                      <App />         |
+|    |                       ...            v                                   
+|    |                        <Menu items={items} sortAsc={sortAsc} />          
+|    |                       ...                                                
+|    |                         v                                                
+|    |                        vDOM                                              
+|    +---- useEffect()
+|             |
+|             +--- 1) getProductItems(setItems)
+|                  |
+|                  +--- 1.1) fetch('http://localhost:3001/api/products') ---> GET req ---> /api/products
+|                  .                                                                               |
+|                  .                                                                             process
+|                  .                                                                               |
+|                  .                                                    <-- res JSON --------------+
+|                  +--- 1.2) (response) => response.json() 
+|                  |                          |
+|                  |            +-------------+
+|                  |            v
+|                  +--- 1.3) (items) => cb(items)
+|                  |                     v
+|                  |                    setItems(items) --> update ------->
+|                  |                                                        items value
+|                  |                        +-------------- render --------     |
+|                  +--- 1.4)                |                                   |
+|                                                                               |
++------------------------------------------------------------------------------+
+                               
