@@ -1,14 +1,12 @@
 class Product {
 
-    constructor (name,image,price) {
+    constructor (id,name,image,price) {
+        this.id = id,
         this.name = name
         this.image = image
         this.price = price
     }
 
-    // HW*: encapsulate 'name' property
-    //    : don't allow empty product name
-    //    : if name is empty - throw an error with message "Invalid product name"
     
 }
 
