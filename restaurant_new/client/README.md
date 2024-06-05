@@ -140,5 +140,55 @@
 |                  |                        +-------------- render --------     |
 |                  +--- 1.4)                |                                   |
 |                                                                               |
-+------------------------------------------------------------------------------+
++-------------------------------------------------------------------------------+
+
+
+
+
+
+
+
+
+
+
+
+
+# event binding / native DOM
+
+
+
+
+
+
+.
+.
+.
+|                                    xyzEvent {...}
+|                                      v
++-- element.addEventListener('click', (e) => {console.log(e) })
                                
+
+
+
+
+
+
+# event binding / react DOM
+
+react DOM
+.
+.
+|
+|            SyntheticBaseEvent {
+|                 nativeEvent: PointerEvent {},
+|                 target: button
+|            } <---- wrapper
+|                  v
+<button onClick={ (e) => { orderItem(itemId) } data-product-id={item.id} />
+                             |
+                             v
+                             {                                         API SERVER
+                              fetch() --- GET req /api/order/{itemId} -----+
+                             }                                             |
+                                                                           v
+                                                                        req.url == "/api/order/102"
