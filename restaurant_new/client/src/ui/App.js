@@ -11,8 +11,11 @@ const App = () => {
     let [sortAsc, setSortAsc] = useState(true)
     let [items,setItems]      = useState([])
 
-    useEffect(() => {
-        getProductItems(setItems)
+    useEffect(() => {        
+        (async () => {
+           let itemsData = await getProductItems()
+           setItems(itemsData)
+        })()    
     },[]) // single call
     
     

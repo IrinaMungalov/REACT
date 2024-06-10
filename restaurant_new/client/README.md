@@ -192,3 +192,83 @@ react DOM
                              }                                             |
                                                                            v
                                                                         req.url == "/api/order/102"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                              
+const f = () => { return value }
+                     |
+                     v
+                    value
+              
+---------------------------------------------
+const f = async () => { return value }
+                           |
+                           v
+                        Promise { value }
+
+
+
+
+
+
+
+
+
+
+
+                            wrapper function
+                               |
+             +-----------------+-------------------+
+             |                                     |
+             v                                     v
+someHook( () => {     functionWithPromises()       } )
+
+
+const functionWithPromises = async () => { ... }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<buttob
+  onClick = {orderItem}
+>              |
+...            |
+  +------------+
+  |
+  |            +--------- react event
+  v            |
+               v
+              (event) => {
+                ...
+                orderItem(itemId)
+                |
+              } |
+----------------v--------------------
+orderItem = (itemId) {
+  ...
+}
