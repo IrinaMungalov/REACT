@@ -30,7 +30,7 @@ const server = http.createServer((req,res) => {
         // let itemId = parseInt(req.url.replace('/api/order/',''))
         
         res.end(JSON.stringify({
-            message: "Oreder placed successfully!",
+            message: "Order placed successfully!",
             itemId: itemId
         }))
     } else {
