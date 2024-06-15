@@ -1,28 +1,38 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 import "./Flake.css"
 
 
 const Flake = ({left}) => {
+    
+    let [top, setTop] = useState(0)  
+        console.time("component")  
 
-    let [top, setTop] = useState(0)
+    useEffect(()=>{
+        setTimeout(() => {
+            console.log("MOVE IT!")
+            setTop(top + 5)
+        }, 1000)
+    })
 
+    // jsx
     const style = {
         top: `${top}%`,
         left: `${left}%`
     }
 
-    return (
+    const jsx = (
         <>
-            <div 
+            <div
                 className="flake"
-                style={style}            
+                style={style}
             ></div>
-            <button onClick={() => {
-                setTop(top+5)
-            }}>DOWN</button>
         </>
     )
+
+    console.timeEnd("component")
+
+    return jsx
 }
 
-export{Flake}
+export {Flake}

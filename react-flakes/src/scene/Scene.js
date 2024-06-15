@@ -6,7 +6,7 @@ import { randomCoordinate } from "../utils/coords"
 function Scene() {
   return (
     <div className="scene">
-      <Flake left={randomCoordinate()}/>
+      <Flake left={randomCoordinate()} />
       
     </div>
   );
