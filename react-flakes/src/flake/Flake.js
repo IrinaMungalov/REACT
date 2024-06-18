@@ -3,22 +3,28 @@ import { useState, useEffect } from "react"
 import "./Flake.css"
 
 
-const Flake = ({left}) => {
+const Flake = ({left, initialDelay, size}) => {
     
-    let [top, setTop] = useState(0)  
-        console.time("component")  
+    const delay = 25
+    const overallSpeed = 0.15
+    const speed = size
+    const startTop = -15
+    let [top, setTop] = useState(startTop)  
+         
 
     useEffect(()=>{
-        setTimeout(() => {
-            console.log("MOVE IT!")
-            setTop(top + 5)
-        }, 1000)
+        setTimeout(() => {            
+            setTop(
+                top < 100 ? top + speed * overallSpeed : startTop
+            )
+        }, top == startTop ? initialDelay : delay)
     })
 
     // jsx
     const style = {
         top: `${top}%`,
-        left: `${left}%`
+        left: `${left}%`,
+        transform: `scale(${size})`
     }
 
     const jsx = (
@@ -30,7 +36,7 @@ const Flake = ({left}) => {
         </>
     )
 
-    console.timeEnd("component")
+    
 
     return jsx
 }
