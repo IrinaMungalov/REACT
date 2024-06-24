@@ -131,3 +131,60 @@ COMPONENT LIFECYCLE
                                       |
                                       v
                                      DOM ------------------------------->
+
+
+
+
+
+
+
+
+
+
+
+# Lift Up
+
+
+
+
+
+
+  root
+   |
+  children []
+   |
+   +-- 0 - <Scene />   <----- HoC
+     |        | |
+     |        | +-- useState()  <-> []top
+     |        |
+     |      children []   
+     |        |                          
+     |        +-- 0 - <Flake />            
+     |        |          |                 
+     v        |          +-- useState()    <-> local "top"
+              |          +-- useEffect() 
+              |
+              +-- 1 - <Flake />
+              |          |
+              |          +-- useState()    <-> local "top"
+              |          +-- useEffect()
+              |
+              .
+              .
+              .
+
+
+
+
+
+
+
+
+
+
+# useState() -> data structure: Array, Object
+
+
+
+
+ ([currentState]) <------ setState([newState])

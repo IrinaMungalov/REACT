@@ -15,7 +15,6 @@ function Scene() {
         return <Flake left={randomCoordinate()} initialDelay={randomDelay()} size={randomSize()} />
 
       })}
-
       
     </div>
   );
