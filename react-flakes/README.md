@@ -155,19 +155,19 @@ COMPONENT LIFECYCLE
    |
    +-- 0 - <Scene />   <----- HoC
      |        | |
-     |        | +-- useState()  <-> []top
-     |        |
-     |      children []   
-     |        |                          
-     |        +-- 0 - <Flake />            
-     |        |          |                 
-     v        |          +-- useState()    <-> local "top"
-              |          +-- useEffect() 
+     |        | +-- useState()  <-> flakeData[]
+     |        | +-- useEffect()  <-> flakeData[]
+     |        |               |
+     |        |              props
+     |        |               |
+     |      children []       |
+     |        |               v              
+     |        +-- 0 - <Flake .../>            
+     |        |                           
+     v        |
               |
               +-- 1 - <Flake />
-              |          |
-              |          +-- useState()    <-> local "top"
-              |          +-- useEffect()
+              |
               |
               .
               .
@@ -188,3 +188,9 @@ COMPONENT LIFECYCLE
 
 
  ([currentState]) <------ setState([newState])
+
+
+
+
+
+  
