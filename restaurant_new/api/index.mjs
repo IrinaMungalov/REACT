@@ -21,18 +21,20 @@ const server = http.createServer((req,res) => {
     res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000")
     
     if (req.url.startsWith("/api/products")) {
+
         res.end(JSON.stringify(products))
+
     } else if (req.url.startsWith("/api/order/"))  {
+
         // HW1: try to extract/capture the id value - using regex
-
-        let itemId = parseInt(req.url.match(/\/api\/order\/(\d+)/)[1])
-
-        // let itemId = parseInt(req.url.replace('/api/order/',''))
+        // let itemId = parseInt(req.url.match(/\/api\/order\/(\d+)/)[1])
+        let itemId = parseInt(req.url.replace('/api/order/',''))
         
         res.end(JSON.stringify({
             message: "Order placed successfully!",
             itemId: itemId
         }))
+
     } else {
         res.statusCode = 404
         res.end(JSON.stringify({
