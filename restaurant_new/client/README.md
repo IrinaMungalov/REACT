@@ -254,7 +254,7 @@ const functionWithPromises = async () => { ... }
 
 
 
-<buttob
+<button
   onClick = {orderItem}
 >              |
 ...            |
@@ -272,3 +272,74 @@ const functionWithPromises = async () => { ... }
 orderItem = (itemId) {
   ...
 }
+
+
+
+
+
+
+
+# order chain
+
+
+
+
+
+<App />
+  |
+  |
+  +-- <Order />
+  |
+  |
+  |
+  +-- <Menu />
+        | \
+        |  + message, setMessage = useState()
+        |
+        +-- <Item />
+        |     |
+        |     +-- button
+        |            |
+        |            +- onClick --> ()=> {
+        |                ...
+        |                ----> orderItem(itemId) --- fetch() ---> /api/order/${itemId}
+        |                ...                                                     |
+        |                ...<-------------------- res JSON ----------------------+
+        |                setMessage(data.message) 
+        |                updateOrderInfo(data)
+        |            }
+        |
+        +-- <Item />
+        |
+        |
+        |
+        +-- <Item />
+        |
+        |
+        .
+
+
+
+
+
+ 
+              in +-- grouping ?
+              | /
+              v
+  <Component ... />
+              v
+              |
+              +-- destructuring ?
+
+              TOOLS
+                ... spread
+                {} destructure/group
+                {} pack
+
+              in +-- grouping ?
+              | /
+              v
+  function ( ... )
+              v
+              |
+              +-- destructuring ?
