@@ -7,8 +7,13 @@ const getProductItems = async () => {
         
 }
 
-const orderItem = async (itemId) => {
-    return fetch(`http://localhost:3001/api/order/${itemId}`)
+const orderItem = async (productId) => {
+
+    // check if the order was created ?
+    let orderId = localStorage.getItem('orderId')
+
+
+    return fetch(`http://localhost:3001/api/order/${orderId}/${productId}`)
         .then((response) => response.json())     
 }
 
