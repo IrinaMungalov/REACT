@@ -1,38 +1,44 @@
 import http from 'node:http'
+import postgres from 'postgres'
 
 import {Product} from './model/Product.mjs'
 import { Money } from './model/Money.mjs'
 
-const products = [
-    new Product(101,"pizza", "https://rabotaryadom.info/wp-content/cache/thumb/43/5c3293a19b8ac43_350x0.jpg",
-        new Money(100, 'MDL')
-    ),
-    new Product(102,"risotto", "https://img.over-blog-kiwi.com/0/65/19/23/20191209/ob_02d697_risotto-parmesan-chorizo.jpg",
-        new Money(25, 'MDL')
-    ),
-    new Product(103,"lasagna", "https://i.pinimg.com/originals/e6/83/4e/e6834ea984f5f066cddc7730137c2eab.jpg",
-        new Money(50, 'MDL')
-    ),
-];
 
-const server = http.createServer((req,res) => {
+
+const server = http.createServer(async (req,res) => {
+
+    const sql = postgres('postgres://postgres:qazwsx@localhost:12000/react_restaurant_db')
 
     res.setHeader("Content-type","application/json")
     res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000")
     
     if (req.url.startsWith("/api/products")) {
 
+        let productData = await sql`SELECT * FROM products`
+
+        let products = productData.map(data => new Product(data.id, data.name, data.image, new Money(data.price_amount, data.price_currency)))
+
         res.end(JSON.stringify(products))
 
     } else if (req.url.startsWith("/api/order/"))  {
 
         // HW1: try to extract/capture the id value - using regex
-        // let itemId = parseInt(req.url.match(/\/api\/order\/(\d+)/)[1])
-        let itemId = parseInt(req.url.replace('/api/order/',''))
+        // let productId = parseInt(req.url.match(/\/api\/order\/(\d+)/)[1])
         
+        let pathParts = req.url.split('/')
+        let productId = parseInt(pathParts.pop())
+        let orderId = pathParts.pop() === 'null' ? 
+                        parseInt(`${new Date().getTime()}${parseInt(Math.random()*1000)}`) 
+                            : 
+                        parseInt(pathParts.pop())
+        
+        await sql`INSERT INTO orders(id) VALUES(${orderId})`
+
         res.end(JSON.stringify({
             message: "Order placed successfully!",
-            itemId: itemId
+            productId: productId,
+            orderId: orderId
         }))
 
     } else {
