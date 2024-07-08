@@ -343,3 +343,43 @@ orderItem = (itemId) {
               v
               |
               +-- destructuring ?
+
+
+
+
+
+
+
+
+
+
+
+
+<Item >
+  |
+  +-- <button />
+        ^
+        |
+        click -----> orderItem(productId)
+          |             ^   |
+        orderId         |   +<- localStorage.getItem('orderId')
+          |             |   |
+          v             |   +-> fetch() --> /api/order/${orderId}/${productId} ---+
+    localStorage        |                                                         |
+                        |                                                       HTTP
+                        |                                                         |
+                        |                                                         req
+                        |                                                         |
+                        |                                                         v
+                        |             +------------- false -------------  pathParts.pop() === 'null' ?
+                        |             |                                           |
+                        |     sql'UPDATE order ...                               true
+                        |             |                                           |
+                        |             |                                           v
+                        |             |                                         orderId = new id
+                        |             |                                           |
+                        |             |                                 sql`INSERT INTO orders(id)
+                        |             |                                           |
+                        |             +-----------------+-------------------------+
+                        |                               |
+                        +--------  res JSON {orderID} --+

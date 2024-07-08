@@ -1,6 +1,6 @@
-const Order = () => {
+const Order = ({count}) => {
     return (
-        <span>ORDER: 3 items</span>
+        <span>ORDER: {count} items</span>
     )
 }
 

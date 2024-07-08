@@ -3,7 +3,7 @@ import Item from "./Item"
 import {orderItem} from "../services/DataService"
 
 
-const Menu = ({items,sortAsc}) => {
+const Menu = ({ items, sortAsc, setCount }) => {
     let [message, setMessage] = useState(undefined)
     console.log(items)
        
@@ -16,7 +16,7 @@ const Menu = ({items,sortAsc}) => {
                     .sort(
                         (item1, item2) => (sortAsc ? 1: -1) * (item1.price.amount - item2.price.amount)
                      )
-                    .map((item, idx) => <Item {...{idx,item,setMessage,orderItem}} />)}
+                    .map((item, idx) => <Item {...{idx,item,setMessage,orderItem,setCount}} />)}
             </ul> 
         </>
     )
