@@ -28,17 +28,20 @@ const server = http.createServer(async (req,res) => {
         
         let pathParts = req.url.split('/')
         let productId = parseInt(pathParts.pop())
-        let orderId = pathParts.pop() === 'null' ? 
-                        parseInt(`${new Date().getTime()}${parseInt(Math.random()*1000)}`) 
-                            : 
-                        parseInt(pathParts.pop())
-        
-        await sql`INSERT INTO orders(id) VALUES(${orderId})`
+        let orderId = pathParts.pop()
 
+        if (orderId === 'null') {
+            orderId = parseInt(`${new Date().getTime()}${parseInt(Math.random() * 1000)}`)
+            await sql`INSERT INTO orders(id) VALUES(${orderId})`
+        }                     
+        
+        await sql`INSERT INTO order_products VALUES (${orderId},${productId})`
+        let count = await sql`SELECT COUNT(*) FROM order_products WHERE order_id = ${orderId};`
         res.end(JSON.stringify({
             message: "Order placed successfully!",
             productId: productId,
-            orderId: orderId
+            orderId: orderId,
+            itemCount: count[0].count
         }))
 
     } else {
