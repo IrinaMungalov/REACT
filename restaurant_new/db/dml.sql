@@ -20,3 +20,11 @@ INSERT INTO products VALUES
     50,
     'MDL'
 );
+
+
+SELECT SUM(price_amount), price_currency 
+FROM products JOIN order_products 
+ON order_products.product_id = products.id 
+WHERE order_products.order_id = ${orderId} 
+GROUP BY (price_currency)`
+        
