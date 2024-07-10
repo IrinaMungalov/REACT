@@ -23,7 +23,7 @@ const server = http.createServer(async (req,res) => {
 
     } else if (req.url.startsWith("/api/order/"))  {
 
-        // HW1: try to extract/capture the id value - using regex
+        // HW: try to extract/capture the id value - using regex
         // let productId = parseInt(req.url.match(/\/api\/order\/(\d+)/)[1])
         
         let pathParts = req.url.split('/')
