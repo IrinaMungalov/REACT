@@ -1,43 +1,40 @@
 import { useState, useEffect } from 'react'
 
-import { SortButton } from './SortButton';
-import { Menu } from './Menu';
-import { Order } from './Order';
+import { SortButton } from './SortButton'
+import { Menu } from './Menu'
+import { Order } from './Order'
 
-import { getProductItems } from '../services/DataService';
-
-// HW1: using new function from data services and use effect hook 
-//      load order item count and render it
+import { getProductItems, getOrderCount } from '../services/DataService'
 
 const App = () => {
-
     let [sortAsc, setSortAsc] = useState(true)
-    let [items,setItems]      = useState([])
-    let [count,setCount]      = useState(0)
-    let [total, setTotal]     = useState({})
+    let [items, setItems] = useState([])
+    let [count, setCount] = useState(0)
+    let [total, setTotal] = useState({ totalAmount: 0, totalCurrency: '' })
 
     useEffect(() => {
-        (async () => {
-            let itemsData = await getProductItems()
-            setItems(itemsData)
-        })()
-    }, []) // single call
+        let getData = async () => {            
+                let itemsData = await getProductItems()
+                setItems(itemsData)
+
+                let orderCount = await getOrderCount()
+                setCount(orderCount)          
+       }
+        getData()
+    }, [])
 
     const setOrderInfo = ({ itemCount, totalAmount, totalCurrency }) => {
         setCount(itemCount)
         setTotal({ totalAmount, totalCurrency })
     }
 
-
-    
-    
     return (
         <>
             <SortButton sortAsc={sortAsc} setSortAsc={setSortAsc} />
-            <Order count={count} total={total}/>
-            <Menu items={items} sortAsc={sortAsc} setOrderInfo={setOrderInfo} /> 
+            <Order count={count} total={total} />
+            <Menu items={items} sortAsc={sortAsc} setOrderInfo={setOrderInfo} />
         </>
     )
 }
 
-export {App}
+export { App }
