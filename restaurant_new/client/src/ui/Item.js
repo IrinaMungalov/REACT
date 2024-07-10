@@ -1,4 +1,4 @@
-const Item = ({ item, idx, setMessage, orderItem, setCount } ) => {
+const Item = ({ item, idx, setMessage, orderItem, setOrderInfo } ) => {
     return (
         <li key={idx}>
             <h2>{item.name}</h2>
@@ -12,7 +12,13 @@ const Item = ({ item, idx, setMessage, orderItem, setCount } ) => {
                         let response = await orderItem(productId)
                         localStorage.setItem('orderId', response.orderId)
                         setMessage(response.message)
-                        setCount(response.itemCount)
+
+                        // HW2: group these values
+                        setOrderInfo({
+                            itemCount: response.itemCount,
+                            totalAmount: response.totalAmount,
+                            totalCurrency: response.totalCurrency
+                        })
                     } // <------------------------------- /wrapper
                 }
                 data-product-id={item.id}

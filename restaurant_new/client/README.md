@@ -383,3 +383,25 @@ orderItem = (itemId) {
                         |             +-----------------+-------------------------+
                         |                               |
                         +--------  res JSON {orderID} --+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ACTION --------> setAbc() ----> abc \
+                 setXyz() ----> xyz  + ---> state SINGLE COMPONENT !!!
+                 setWyv() ----> wyv /
+
+
+ACTION --------> setCommon() ----> {abc, xyz, wyv} ---> state SINGLE COMPONENT !!!
+                    
+                 

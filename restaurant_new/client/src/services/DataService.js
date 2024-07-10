@@ -17,12 +17,9 @@ const orderItem = async (productId) => {
         .then((response) => response.json())
 }
 
-const getOrderCount = async () => {
-    
-    let orderId = localStorage.getItem('orderId')
-        
-    return fetch(`http://localhost:3001/api/order/${orderId}/count`)
-        .then((response) => response.json())
-}
 
-export {getProductItems, orderItem, getOrderCount}
+
+
+
+
+export { getProductItems, orderItem }
