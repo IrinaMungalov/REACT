@@ -53,8 +53,22 @@ const server = http.createServer(async (req, res) => {
             }))
         })
 
-              
+    } else if (req.url.startsWith("/api/order/count/")) {
 
+        let pathParts = req.url.split('/');
+        let orderId = parseInt(pathParts.pop());
+
+        let count = await sql`SELECT COUNT(*) FROM order_products WHERE order_id = ${orderId}`
+        let total = await sql`SELECT SUM(price_amount), price_currency 
+                          FROM products JOIN order_products 
+                          ON order_products.product_id 
+                          = products.id WHERE order_products.order_id = ${orderId} GROUP BY (price_currency)`
+
+        res.end(JSON.stringify({
+            itemCount: count[0].count,
+            totalAmount: total[0].sum,
+            totalCurrency: total[0].price_currency
+        }))            
 
     } else if (req.url.startsWith("/api/order/")) {
 
