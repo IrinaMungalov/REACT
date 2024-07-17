@@ -1,4 +1,4 @@
-const Item = ({ item, idx, setMessage, orderItem, setOrderInfo } ) => {
+const Item = ({ item, idx, setMessage, orderItem, setOrderInfo }) => {
     return (
         <li key={idx}>
             <h2>{item.name}</h2>
