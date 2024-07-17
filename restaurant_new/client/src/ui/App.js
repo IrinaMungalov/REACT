@@ -4,7 +4,7 @@ import { SortButton } from './SortButton';
 import { Menu } from './Menu';
 import { Order } from './Order';
 
-import { getProductItems } from '../services/DataService';
+import { getProductItems, getOrderCount } from '../services/DataService';
 
 // HW1: using new function from data services and use effect hook 
 //      load order item count and render it
@@ -18,8 +18,12 @@ const App = () => {
 
     useEffect(() => {
         (async () => {
-            let itemsData = await getProductItems()
-            setItems(itemsData)
+            let getData = await getProductItems()
+            setItems(getData)
+
+            let orderInfo = await getOrderCount()
+            setCount(orderInfo.itemCount)
+            setTotal({ totalAmount: orderInfo.totalAmount, totalCurrency: orderInfo.totalCurrency })
         })()
     }, []) // single call
 
@@ -27,9 +31,6 @@ const App = () => {
         setCount(itemCount)
         setTotal({ totalAmount, totalCurrency })
     }
-
-
-
 
     return (
         <>

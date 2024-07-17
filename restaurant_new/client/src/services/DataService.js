@@ -21,4 +21,15 @@ const orderItem = async (productId) => {
 // HW*: create the function payOrder()
 
 
-export { getProductItems, orderItem }
+const getOrderCount = async () => {
+
+    let orderId = localStorage.getItem('orderId')
+
+    if (!orderId) 
+        return { itemCount: 0, totalAmount: 0, totalCurrency: 'USD' }
+
+    return fetch(`http://localhost:3001/api/order/count/${orderId}`)
+        .then((response) => response.json())
+}
+
+export { getProductItems, orderItem, getOrderCount }
